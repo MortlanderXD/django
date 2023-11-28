@@ -11,7 +11,7 @@ $python --version
 
 ```
 
-## Step 2 : install pipenv
+## Step 2 : install pipenv # OPTIONNEL
 
 ```shell
 $pip install pipenv
@@ -32,4 +32,22 @@ $django-admin startproject nameProject .
 
 ```shell
 $python manage.py runserver 8000
+```
+
+## Migrate all new structure to database ( need to do if first time )
+
+```shell
+$python manage.py migrate
+```
+
+## Creating the admin user and follow instruction
+
+```shell
+$python manage.py createsuperuser
+```
+
+## Creating the blog app
+
+```shell
+$python manage.py startapp blog 
 ```
