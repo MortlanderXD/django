@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse,HttpResponseRedirect
 from .models import Question,Choice
 from django.urls import reverse
+from django.views import generic
 
 # Create your views here.
 
@@ -11,11 +12,11 @@ def index(request):
     return render(request, "index.html", context)
 
 def results(request, question_id):
-    response = f"You're looking at the results of question {question_id}."
-    return HttpResponse(response)
+    question = get_object_or_404(Question, pk=question_id)
+    return render(request, "results.html", {"question": question})
+
 
 def detail(request, question_id):
-
     try:
         question = Question.objects.get(id=question_id)
 
@@ -40,13 +41,9 @@ def vote(request, question_id):
     else:
         return HttpResponse("Félicitations ! Vous avez tous rempli !")
 
-def votes(request):
-    questions = Question.objects.all
-    context = {"questions": questions}
-    return render(request, "votes.html", context)
 
-    
-    
-
+class ResultsView(generic.DetailView):
+    model = Question
+    template_name = "results.html"
 
 
