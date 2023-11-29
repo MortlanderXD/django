@@ -1,11 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    HEY
-</body>
-</html>
+{% extends 'base.html' %}
+
+
+{% block title %}La page index.hmtl{% endblock %}
+
+{% block header %}
+<h1>Header Base</h1>
+<nav>
+  <a href="/">Accueil</a>
+  <a href="/about">À propos</a>
+  <a href="/contact">Contact</a>
+  <form action="/search" method="get">
+    <input type="text" name="query" placeholder="Rechercher">
+    <input type="submit" value="Rechercher">
+  </form>
+</nav>
+{% endblock %}
+
+{% block content %}
+  <h2>Accueil Index</h2>
+  <p>Bienvenue sur mon site Web !</p>
+  {% if latest_question_list %}
+    <ul>
+    {% for question in latest_question_list %}
+        <li><a href="/members/{{ question.id }}/">{{ question.question_text }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
+{% endblock %}
+
+{% block footer %}
+<ul>
+    <li><a href="https://www.facebook.com/example">Facebook</a></li>
+    <li><a href="https://twitter.com/example">Twitter</a></li>
+    <li><a href="https://www.linkedin.com/company/example">LinkedIn</a></li>
+</ul>
+<p>Copyright &copy; 2023</p>
+{% endblock %}
