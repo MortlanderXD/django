@@ -5,8 +5,6 @@ from django.urls import reverse
 
 # Create your views here.
 
-
-
 def index(request):
     latest_question_list = Question.objects.all
     context = {"latest_question_list": latest_question_list}
@@ -27,7 +25,6 @@ def detail(request, question_id):
     return render(request, "detail.html",{"question":question})
 
 def vote(request, question_id):
-
     question = get_object_or_404(Question, id=question_id)
     try:
         selected_choice = question.choice_set.get(id=request.POST["choice"])
@@ -38,5 +35,18 @@ def vote(request, question_id):
     else:
         selected_choice.votes += 1
         selected_choice.save()
+    if question.id +1 <= Question.objects.count() :
+        return HttpResponseRedirect(reverse("members:detail", args=(question.id+1,)))
+    else:
+        return HttpResponse("Félicitations ! Vous avez tous rempli !")
 
-        return HttpResponseRedirect(reverse("members:results", args=(question.id,)))
+def votes(request):
+    questions = Question.objects.all
+    context = {"questions": questions}
+    return render(request, "votes.html", context)
+
+    
+    
+
+
+
