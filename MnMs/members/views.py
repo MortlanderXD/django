@@ -31,7 +31,7 @@ def vote(request, question_id):
     except (KeyError, Choice.DoesNotExist):
         # Redisplay the question voting form.
         return render(request,"detail.html",{"question": question,
-                "error_message": "You didn't select a choice.",})
+                "error_message": "Choisis je te dis.",})
     else:
         selected_choice.votes += 1
         selected_choice.save()
