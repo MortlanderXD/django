@@ -14,3 +14,4 @@ class Choice(models.Model):
     votes = models.IntegerField(default = 0)
     def __str__(self):
         return self.question.question_text+' : '+self.choice_text+' Nbr de vote : '+str(self.votes)
+

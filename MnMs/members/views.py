@@ -1,11 +1,14 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse,HttpResponseRedirect
 from .models import Question,Choice
 from django.urls import reverse
 from django.views import generic
-
+from django.contrib.auth import authenticate, login, logout
+from .forms import LoginForm
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
+@login_required(login_url="/members/login/")
 def index(request):
     latest_question_list = Question.objects.all
     context = {"latest_question_list": latest_question_list}
@@ -41,9 +44,22 @@ def vote(request, question_id):
     else:
         return HttpResponse("Félicitations ! Vous avez tous rempli !")
 
-
 class ResultsView(generic.DetailView):
     model = Question
     template_name = "results.html"
 
+def login_view(request):
+    #if request.user.is_authenticated:
+    form = LoginForm(request.POST)
+    if form.is_valid():
+        username = form.cleaned_data['username']
+        password = form.cleaned_data['password']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(request,user)
+            return redirect('/members')
+    return render(request, 'login.html', {'form': form})
 
+def logout_view(request):
+    logout(request)
+    return HttpResponse("Logout Completed ! ")
