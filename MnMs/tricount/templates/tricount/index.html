@@ -1,8 +1,18 @@
 {% extends 'tricount/base.html' %}
 
-{% block title %}Index Page{% endblock %}
+{% block title %}
+  Index Page
+{% endblock %}
+
+{% block header %}
+  {% if isConnected %}
+    <a href="logout">LogOut</a>
+  {% else %}
+  <a href="login">Login</a>
+  {% endif %}
+{% endblock %}
 
 {% block content %}
-<!-- form for handling user login -->
-<p>Reu</p>
+  <!-- form for handling user login -->
+  <p>Reu</p>
 {% endblock %}

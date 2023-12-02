@@ -1,11 +1,14 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse , redirect , HttpResponseRedirect
 from .forms import LoginForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login , logout 
 # Create your views here.
+from django.urls import reverse
+
 
 def index(request):
-        
-    return render(request,'tricount/index.html')
+    isConnected = request.user.is_authenticated
+    context = {"isConnected": isConnected}
+    return render(request,'tricount/index.html',context)
 
 
 def loginView(request):
@@ -16,5 +19,14 @@ def loginView(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request,user)
-            return render(request, "tricount/index.html")
+            isConnected = request.user.is_authenticated
+            context = {"isConnected": isConnected}
+            return redirect('/tricount')
     return render(request, 'tricount/login.html', {'form': form})
+
+
+def logout_view(request):
+    logout(request)
+    isConnected = request.user.is_authenticated
+    context = {"isConnected": isConnected}
+    return HttpResponseRedirect('/tricount')

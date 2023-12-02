@@ -6,7 +6,7 @@ app_name = "tricount"
 urlpatterns = [
     path('', views.index,name='index'),
     path('login/', views.loginView,name='login'),
-    #path('logout/', views.logout,name='logout'),
+    path('logout/', views.logout_view,name='logout'),
     #path('welcome/', views.index,name='index'),
     
 ]
