@@ -6,9 +6,9 @@
 
 {% block header %}
   {% if isConnected %}
-    <a href="logout">LogOut</a>
+    <a href="{% url 'tricount:logout' %}">LogOut</a>
   {% else %}
-  <a href="login">Login</a>
+  <a href="{% url 'tricount:login' %}">Login</a>
   {% endif %}
 {% endblock %}
 
