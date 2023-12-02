@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'tricount/style.css' %}" />
+  <head>
+    <link rel="shortcut icon" href="#">
+    <meta charset="UTF-8" />
+    <title>
+      {% block title %}
+        basePage
+      {% endblock %}
+    </title>
+  </head>
+  <body>
+    <header>
+      
+      
+      <a href="/tricount"><img src="/static/tricount/logo.png"></a>
+      <nav class="menu">
+          <a href="/tricount">Home</a>
+          <a href="#">Account</a>
+          <a href="">About</a>
+          {% block header %}
+          {% endblock %}
+      </nav>
+    
+      
+    </header>
+    <main id="main-cont">
+      {% block content %}
+
+      {% endblock %}
+    </main>
+    <footer>
+      {% block footer %}
+        <p>Copyright &copy; 2023</p>
+      {% endblock %}
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,36 @@
+{% extends 'members/base.html' %}
+
+
+{% block title %}La page index.hmtl{% endblock %}
+
+{% block header %}
+
+
+  <a href="/members"><h1>Header Base</h1></a>
+{% endblock %}
+
+{% block content %}
+<div class="d-flex flex-column justify-content-center align-items-center">
+  <h2>Accueil Index</h2>
+  <p>Bienvenue sur notre site Web !</p>
+</div>
+  {% if latest_question_list %}
+    <ul>
+    {% for question in latest_question_list %}
+      <li>
+        <a href="{% url 'members:detail' question.id %}">{{ question.question_text }}</a>
+      </li>
+    {% endfor %}
+    </ul>
+  {% else %}
+      <p>No polls are available.</p>
+  {% endif %}
+{% endblock %}
+
+{% block footer %}
+  <ul>
+      <li><a href="https://www.facebook.com/example">Facebook</a></li>
+      <li><a href="https://twitter.com/example">Twitter</a></li>
+      <li><a href="https://www.linkedin.com/company/example">LinkedIn</a></li>
+  </ul>
+{% endblock %}

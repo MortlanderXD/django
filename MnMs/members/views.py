@@ -12,11 +12,11 @@ from django.contrib.auth.decorators import login_required
 def index(request):
     latest_question_list = Question.objects.all
     context = {"latest_question_list": latest_question_list}
-    return render(request, "index.html", context)
+    return render(request, "members/index.html", context)
 
 def results(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
-    return render(request, "results.html", {"question": question})
+    return render(request, "members/results.html", {"question": question})
 
 
 def detail(request, question_id):
@@ -26,7 +26,7 @@ def detail(request, question_id):
     except Question.DoesNotExist:
         return render(request,"error.html")
 
-    return render(request, "detail.html",{"question":question})
+    return render(request, "members/detail.html",{"question":question})
 
 def vote(request, question_id):
     question = get_object_or_404(Question, id=question_id)
@@ -34,7 +34,7 @@ def vote(request, question_id):
         selected_choice = question.choice_set.get(id=request.POST["choice"])
     except (KeyError, Choice.DoesNotExist):
         # Redisplay the question voting form.
-        return render(request,"detail.html",{"question": question,
+        return render(request,"members/detail.html",{"question": question,
                 "error_message": "Choisis je te dis.",})
     else:
         selected_choice.votes += 1
@@ -42,14 +42,14 @@ def vote(request, question_id):
     if question.id +1 <= Question.objects.count() :
         return HttpResponseRedirect(reverse("members:detail", args=(question.id+1,)))
     else:
-        return HttpResponse("Félicitations ! Vous avez tous rempli !")
+        return render(request,"members/results.html",{"question": question})
 
 class ResultsView(generic.DetailView):
     model = Question
-    template_name = "results.html"
+    template_name = "members/results.html"
+
 
 def login_view(request):
-    #if request.user.is_authenticated:
     form = LoginForm(request.POST)
     if form.is_valid():
         username = form.cleaned_data['username']
@@ -57,8 +57,8 @@ def login_view(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request,user)
-            return redirect('/members')
-    return render(request, 'login.html', {'form': form})
+            return render(request, "members/index.html")
+    return render(request, 'members/login.html', {'form': form})
 
 def logout_view(request):
     logout(request)

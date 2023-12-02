@@ -1,0 +1,23 @@
+{% extends 'tricount/base.html' %}
+
+{% block title %}
+  LoginPage
+{% endblock %}
+
+{% block content %}
+  <div id="login-content">
+    <h1>LOGIN</h1>
+    <form action="{% url 'tricount:login' %}" method="post">
+      {% csrf_token %}
+      
+        <input type="text" name="username" placeholder="Nom d'utilisateur" />
+      
+        <input type="password" name="password" placeholder="Mot de passe" />
+      <div>
+        <input type="submit" class = "but_connexion" value="Connexion" />
+        <input type="submit" class = "but_create" value="Créer Compte"/>
+      
+      </div>
+    </form>
+  </div>
+{% endblock %}
