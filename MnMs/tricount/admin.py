@@ -1,8 +1,4 @@
 from django.contrib import admin
-
-# Register your models here.
-
-from django.contrib import admin
 from .models import Personne, Message
 # Register your models here.
 
@@ -23,8 +19,7 @@ class MessageAdmin(admin.ModelAdmin):
      fieldsets = [
          ("auteur", {"fields": ["auteur"]}),
          ("contenu", {"fields": ["contenu"]}),
-         ("date de publication", {"fields": ["date_de_publication"]}),
-         ("lecteur(s)", {"fields": ["lecteur"]}),
+         ("date de publication", {"fields": ["date_de_publication"]}),  
     ]
     
 
