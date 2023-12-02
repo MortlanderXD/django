@@ -1,36 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-  {% load static %}
-  <link rel="stylesheet" href="{% static 'tricount/style.css' %}" />
-  <head>
-    <link rel="shortcut icon" href="#">
-    <meta charset="UTF-8" />
-    <title>
-      {% block title %}
-        basePage
-      {% endblock %}
-    </title>
-  </head>
-  <body>
-    <header>
-      <a href="/tricount"><img src="/static/tricount/logo.png"></a>
-      <nav class="menu">
-          <a href="/tricount">Home</a>
-          <a href="">About</a>
-          <a href="#">Account</a>
-          {% block header %}
-          {% endblock %}
-      </nav>
-    </header>
-    <main id="main-cont">
-      {% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'tricount/style.css' %}" />
 
+<head>
+  <link rel="shortcut icon" href="#">
+  <meta charset="UTF-8" />
+  <title>
+    {% block title %}
+    basePage
+    {% endblock %}
+  </title>
+</head>
+
+<body>
+  <header>
+    <a href="/tricount"><img src="/static/tricount/logo.png"></a>
+    <nav class="menu">
+      <a href="/tricount">Home</a>
+      <a href="">About</a>
+      <a href="">About</a>
+      {% if isConnected %}
+      <div class="dropdown">
+        <img
+          src="https://t1.gstatic.com/licensed-image?q=tbn:ANd9GcQnHykeJT7z-1d4NQBZBAIdr3QwHmCR1UBpo6JYVPy3M3mSsr4M60gX4nmC3iZ0p_6k">
+
+        <div class="dropdown-content">
+          <a href="{% url 'tricount:account' %}">Account</a>
+          <a href="{% url 'tricount:logout' %}">LogOut</a>
+        </div>
+      </div>
+      {% else %}
+      <a href="{% url 'tricount:login' %}">Login</a>
+      {% endif %}
+      {% block header %}
       {% endblock %}
-    </main>
-    <footer>
-      {% block footer %}
-        <p>Copyright &copy; 2023</p>
-      {% endblock %}
-    </footer>
-  </body>
+
+    </nav>
+  </header>
+  <main id="main-cont">
+    {% block content %}
+
+    {% endblock %}
+  </main>
+  <footer>
+    {% block footer %}
+    <p>Copyright &copy; 2023</p>
+    {% endblock %}
+  </footer>
+</body>
+
 </html>

@@ -29,3 +29,6 @@ def loginView(request):
 def logout_view(request):
     logout(request) 
     return redirect('/tricount')
+
+def account():
+    return render('account.html')
