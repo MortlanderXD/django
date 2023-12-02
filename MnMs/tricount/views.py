@@ -30,5 +30,7 @@ def logout_view(request):
     logout(request) 
     return redirect('/tricount')
 
-def account():
-    return render('account.html')
+def account(request):
+    isConnected = request.user.is_authenticated
+    context = {"isConnected": isConnected}
+    return render(request,'tricount/account.html',context)
